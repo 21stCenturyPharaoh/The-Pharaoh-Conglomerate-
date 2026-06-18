@@ -1,22 +1,12 @@
-.json
 {
   "name": "pharaoh-alpha-node-swarm",
   "version": "1.0.0",
-  "description": "Pharaoh Sovereign Stack powered by Hermes Agent DNA",
-  "main": "functions/hermes.js",
+  "description": "Pharaoh Sovereign Stack",
   "scripts": {
-    "start": "netlify dev",
-    "build": "netlify build",
-    "deploy": "netlify deploy"
+    "start": "netlify dev"
   },
-  "dependencies": {
-    "@hermes/core": "^1.0.0",
-    "@hermes/netlify-blobs": "^1.0.0",
-    "@hermes/base44-tools": "^1.0.0"
-  },
-  "devDependencies": {
-    "netlify-cli": "^17.0.0"
-  },
+  "license": "MIT"
+}
   "engines": {
     "node": ">=18"
   },
