@@ -1,18 +1,41 @@
-`js
-// functions/hermes.js
-import { Hermes } from "@hermes/core"
-import config from "../hermes.config.js"
+import config from "../hermes.config.js";
 
-export default async (req, context) => {
-  const agent = new Hermes(config)
+export default async (request) => {
+  try {
+    const body = await request.json();
 
-  const body = await req.json()
-  const { agentName, message } = body
+    const agentName = body.agentName || "Unknown";
+    const message = body.message || "";
 
-  const reply = await agent.run(agentName, message)
+    const agent =
+      config.agents[agentName] || {
+        role: "Unknown Agent"
+      };
 
-  return new Response(JSON.stringify({ reply }), {
-    headers: { "Content-Type": "application/json" }
-  })
-}
-`
+    const reply =
+      `Hermes online.\n\n` +
+      `Agent: ${agentName}\n` +
+      `Role: ${agent.role}\n\n` +
+      `Received:\n${message}`;
+
+    return new Response(
+      JSON.stringify({ reply }),
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+  } catch {
+    return new Response(
+      JSON.stringify({
+        reply: "Hermes is online, but the request could not be processed."
+      }),
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+  }
+};
