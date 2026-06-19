@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pharaoh Alpha Node</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <h1>Lǎobǎn, Alpha Node Online 👊😎✊</h1>
+  <p>Hermes Empire Edition. No Heidelberg.</p>
+  <button onclick="testHermes()">Test Hermes</button>
+  <pre id="output"></pre>
+  <script>
+    async function testHermes() {
+      document.getElementById('output').textContent = 'Calling Hermes...';
+      const res = await fetch('/api/hermes', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ message: 'Blackview A52Pro Test' })
+      });
+      const data = await res.json();
+      document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
