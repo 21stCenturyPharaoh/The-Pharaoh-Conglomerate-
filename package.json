@@ -1,5 +1,12 @@
 {
   "name": "alpha-node",
   "version": "1.0.0",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "wrangler": "^4.102.0"
+  },
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
+  }
 }
