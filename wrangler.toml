@@ -1,0 +1,3 @@
+name = "hermes-core-api"
+main = "functions/hermes.js"
+compatibility_date = "2026-01-01"
