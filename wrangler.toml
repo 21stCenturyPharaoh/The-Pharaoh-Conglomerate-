@@ -1,0 +1,17 @@
+name = "hermesos"
+compatibility_date = "2026-06-20"
+pages_build_output_dir = "dist"
+
+[vars]
+CHAIN_ID = "0x504841"
+CHAIN_NAME = "Pharaoh-Chain"
+RPC_URL = "https://toth-alpha-node.pharangels.workers.dev/"
+EU_CASE_REF = "EU8044516"
+COLONEL_LAW = "LAW48"
+
+[[kv_namespaces]]
+binding = "HERMES_MEMORY"
+id = "YOUR_KV_NAMESPACE_ID"
+
+[placement]
+mode = "smart"
