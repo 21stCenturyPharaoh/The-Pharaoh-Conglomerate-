@@ -4,93 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0d1117" />
-  <meta name="description" content="Pharaoh Conglomerate Sovereign OS - Clean Production Build" />
-
-  <title>Pharaoh OS | Sovereign Chain</title>
-
+  <title>HERMES-TOTH v4 | Swadia Protocol</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.1/dist/ethers.umd.min.js"></script>
-
   <style>
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: #0d1117;
-      color: #c9d1d9;
-    }
-
-    .btn {
-      padding: 12px 18px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #d4a017, #b8860b);
-      color: #0d1117;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-    }
-
-    .card {
-      background: #161b22;
-      border: 1px solid #30363d;
-      padding: 16px;
-      border-radius: 12px;
-    }
-
-    .grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .grid-4 {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .watermark {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      font-size: 10px;
-      color: #30363d;
-      font-family: monospace;
-      pointer-events: none;
-    }
-
-    header {
-      padding: 16px;
-      border-bottom: 1px solid #30363d;
-      position: sticky;
-      top: 0;
-      background: #0d1117;
-    }
-
-    section {
-      padding: 40px 16px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    h1, h2, h3 {
-      margin: 0 0 10px 0;
-    }
-
-    .center {
-      text-align: center;
-    }
+    body{margin:0;font-family:system-ui,sans-serif;background:#0d1117;color:#c9d1d9}
+    .btn{padding:12px 18px;border-radius:10px;background:linear-gradient(135deg,#d4a017,#b8860b);color:#0d1117;font-weight:600;cursor:pointer;border:none;margin:4px}
+    .card{background:#161b22;border:1px solid #30363d;padding:16px;border-radius:12px;cursor:pointer}
+    .grid{display:grid;gap:12px}.grid-4{grid-template-columns:repeat(4,1fr)}
+    .watermark{position:fixed;bottom:10px;right:10px;font-size:10px;color:#30363d;font-family:monospace;pointer-events:none}
+    header{padding:16px;border-bottom:1px solid #30363d;position:sticky;top:0;background:#0d1117;z-index:10}
+    section{padding:40px 16px;max-width:1100px;margin:auto}
+    .status{padding:8px;border-radius:6px;font-size:12px;margin:8px 0}
+    .online{background:#0f5132;color:#d1e7dd}.offline{background:#842029;color:#f8d7da}
+    #log{height:200px;overflow-y:auto;background:#010409;border:1px solid #30363d;padding:8px;font-size:11px;font-family:monospace}
   </style>
 </head>
-
 <body>
-
 <header>
-  <h2>PHARAOH CONGLOMERATE</h2>
-  <small>Sovereign OS vClean</small>
+  <h2>HERMES-TOTH v4</h2>
+  <small>Swadia Protocol | EU8044516 | <span id="hermes-status" class="status offline">CHECKING...</span></small>
 </header>
 
 <section class="center">
   <h1>107 Acres. One Chain.</h1>
-  <p>Zero Heidelberg.</p>
-
+  <p>Zero Heidelberg. <b>COLONEL|LAW48 ACTIVE</b></p>
   <button class="btn" onclick="connectWallet()">Connect Wallet</button>
+  <button class="btn" onclick="logViolation()">LOG EU VIOLATION</button>
+  <button class="btn" onclick="reflect()">REFLECT → KV</button>
 </section>
 
 <section>
@@ -98,52 +39,65 @@
     <div class="card">Case: EU8044516</div>
     <div class="card">Owner: 0xCOLONEL</div>
     <div class="card">Chain: 0x504841</div>
-    <div class="card">Network: Pharaoh-Chain</div>
+    <div class="card">Agent: HERMES_TOTH_v4</div>
   </div>
 </section>
 
 <section>
-  <h3>Core Engines</h3>
-
-  <div class="grid">
-    <div class="card" onclick="openExternal('https://pharaoh-sovereign-engine.base44.app')">Sovereign Engine</div>
-    <div class="card" onclick="openExternal('https://pharaoh-core-engine.base44.app')">CORE Engine</div>
-    <div class="card" onclick="openExternal('https://pharaoh-sight-engine.base44.app')">Sight Engine</div>
-    <div class="card" onclick="openExternal('https://sovereign-decision-engine.base44.app')">Decision Engine</div>
-  </div>
+  <h3>Swadia Memory Log</h3>
+  <div id="log">Initializing HERMES_MEMORY...</div>
+  <button class="btn" onclick="loadMemory()">Refresh Memory</button>
 </section>
 
-<section>
-  <h3>Actions</h3>
-
-  <button class="btn" onclick="deploy()">Deploy to Pharaoh-Mines</button>
-</section>
-
-<div class="watermark">COLONEL|LAW48</div>
+<div class="watermark">COLONEL|LAW48|SWADIA</div>
 
 <script>
-  async function connectWallet() {
-    if (!window.ethereum) {
-      alert("MetaMask not found");
-      return;
+  const API = location.origin;
+  
+  async function checkHermes(){
+    try{
+      const r = await fetch(`${API}/api/status`);
+      const j = await r.json();
+      document.getElementById('hermes-status').textContent = j.colonel;
+      document.getElementById('hermes-status').className = 'status online';
+      loadMemory();
+    }catch(e){
+      document.getElementById('hermes-status').textContent = 'OFFLINE';
     }
-
+  }
+  
+  async function connectWallet(){
+    if(!window.ethereum) return alert("MetaMask not found");
     const provider = new ethers.BrowserProvider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
+    await provider.send("eth_requestAccounts",[]);
     const signer = await provider.getSigner();
-    const address = await signer.getAddress();
-
-    alert("Connected: " + address);
+    alert("Connected: " + await signer.getAddress());
   }
-
-  function openExternal(url) {
-    window.open(url, "_blank");
+  
+  async function logViolation(){
+    const data = {action:"EU_VIOLATION",case:"EU8044516",timestamp:Date.now(),law:"LAW15"};
+    await fetch(`${API}/api/reflect`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    loadMemory();
   }
-
-  function deploy() {
-    alert("Deploy function placeholder - connect backend later");
+  
+  async function reflect(){
+    const data = {action:"COLONEL_REFLECT",law:"LAW48",timestamp:Date.now()};
+    await fetch(`${API}/api/reflect`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    loadMemory();
   }
+  
+  async function loadMemory(){
+    try{
+      const r = await fetch(`${API}/api/memory`);
+      const j = await r.json();
+      document.getElementById('log').innerHTML = j.memories.map(m => `[${new Date(m.timestamp).toLocaleTimeString()}] ${m.law}: ${m.action}`).join('<br>') || 'No memories yet. Click LOG EU VIOLATION.';
+    }catch(e){
+      document.getElementById('log').innerHTML = 'Memory offline. Check /api/memory';
+    }
+  }
+  
+  checkHermes();
+  setInterval(checkHermes, 10000);
 </script>
-
 </body>
 </html>
