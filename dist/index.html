@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="description" content="Pharaoh Conglomerate Sovereign OS - Clean Production Build" />
+
+  <title>Pharaoh OS | Sovereign Chain</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.1/dist/ethers.umd.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+    }
+
+    .btn {
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #d4a017, #b8860b);
+      color: #0d1117;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+    }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 16px;
+      border-radius: 12px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .watermark {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-size: 10px;
+      color: #30363d;
+      font-family: monospace;
+      pointer-events: none;
+    }
+
+    header {
+      padding: 16px;
+      border-bottom: 1px solid #30363d;
+      position: sticky;
+      top: 0;
+      background: #0d1117;
+    }
+
+    section {
+      padding: 40px 16px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 10px 0;
+    }
+
+    .center {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>PHARAOH CONGLOMERATE</h2>
+  <small>Sovereign OS vClean</small>
+</header>
+
+<section class="center">
+  <h1>107 Acres. One Chain.</h1>
+  <p>Zero Heidelberg.</p>
+
+  <button class="btn" onclick="connectWallet()">Connect Wallet</button>
+</section>
+
+<section>
+  <div class="grid grid-4">
+    <div class="card">Case: EU8044516</div>
+    <div class="card">Owner: 0xCOLONEL</div>
+    <div class="card">Chain: 0x504841</div>
+    <div class="card">Network: Pharaoh-Chain</div>
+  </div>
+</section>
+
+<section>
+  <h3>Core Engines</h3>
+
+  <div class="grid">
+    <div class="card" onclick="openExternal('https://pharaoh-sovereign-engine.base44.app')">Sovereign Engine</div>
+    <div class="card" onclick="openExternal('https://pharaoh-core-engine.base44.app')">CORE Engine</div>
+    <div class="card" onclick="openExternal('https://pharaoh-sight-engine.base44.app')">Sight Engine</div>
+    <div class="card" onclick="openExternal('https://sovereign-decision-engine.base44.app')">Decision Engine</div>
+  </div>
+</section>
+
+<section>
+  <h3>Actions</h3>
+
+  <button class="btn" onclick="deploy()">Deploy to Pharaoh-Mines</button>
+</section>
+
+<div class="watermark">COLONEL|LAW48</div>
+
+<script>
+  async function connectWallet() {
+    if (!window.ethereum) {
+      alert("MetaMask not found");
+      return;
+    }
+
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = await provider.getSigner();
+    const address = await signer.getAddress();
+
+    alert("Connected: " + address);
+  }
+
+  function openExternal(url) {
+    window.open(url, "_blank");
+  }
+
+  function deploy() {
+    alert("Deploy function placeholder - connect backend later");
+  }
+</script>
+
+</body>
+</html>
