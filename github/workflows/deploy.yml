@@ -1,4 +1,4 @@
-yaml
+'yaml
 name: Deploy to Cloudflare
 on:
   push:
@@ -16,4 +16,4 @@ jobs:
       - run: npm install
       - run: npx wrangler deploy
         env:
-          CLOUDFLAREAPITOKEN: ${{ secrets.CLOUDFLAREAPITOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
