@@ -1,0 +1,61 @@
+
+`css
+/ style.css - Pharaoh Conglomerate and Hunan Rights Angels Registry Inc Hermes-Toth-Agent Luxury Theme /
+
+/ Global /
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", serif;
+  background-color: #fdfdfd;
+  color: #111;
+}
+
+/ Header /
+header {
+  background: linear-gradient(135deg, #000, #444);
+  color: #fff;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+header h1 {
+  font-size: 3rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+header p {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/ Sections /
+section {
+  padding: 3rem 2rem;
+  max-width: 900px;
+  margin: auto;
+  line-height: 1.6;
+}
+.luxury-highlight {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #a67c00; / gold accent /
+  text-align: center;
+  margin: 2rem 0;
+}
+.bri-hint {
+  font-size: 1.4rem;
+  color: #444;
+  text-align: center;
+  margin: 1.5rem 0;
+  font-family: 'Noto Serif SC', serif; / Chinese calligraphy style /
+  font-weight: 500;
+}
+
+/ Footer /
+footer {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+}
