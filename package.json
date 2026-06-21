@@ -3,6 +3,9 @@
   "version": "4.0.0",
   "description": "COLONEL|LAW48 - Swadia Protocol Sovereign Agent",
   "type": "module",
+  "scripts": {
+    "build": "mkdir -p dist/utils && cp utils/dateFormatter.js dist/utils/dateFormatter.js || true"
+  },
   "dependencies": {
     "ethers": "^6.13.0",
     "hono": "^4.5.0"
