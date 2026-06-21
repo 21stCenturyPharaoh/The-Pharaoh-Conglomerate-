@@ -1,103 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0d1117" />
-  <title>HERMES-TOTH v4 | Swadia Protocol</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.1/dist/ethers.umd.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SWADIA PROTOCOL | LAW48 | PHARAOH CONGLOMERATE</title>
   <style>
-    body{margin:0;font-family:system-ui,sans-serif;background:#0d1117;color:#c9d1d9}
-    .btn{padding:12px 18px;border-radius:10px;background:linear-gradient(135deg,#d4a017,#b8860b);color:#0d1117;font-weight:600;cursor:pointer;border:none;margin:4px}
-    .card{background:#161b22;border:1px solid #30363d;padding:16px;border-radius:12px;cursor:pointer}
-    .grid{display:grid;gap:12px}.grid-4{grid-template-columns:repeat(4,1fr)}
-    .watermark{position:fixed;bottom:10px;right:10px;font-size:10px;color:#30363d;font-family:monospace;pointer-events:none}
-    header{padding:16px;border-bottom:1px solid #30363d;position:sticky;top:0;background:#0d1117;z-index:10}
-    section{padding:40px 16px;max-width:1100px;margin:auto}
-    .status{padding:8px;border-radius:6px;font-size:12px;margin:8px 0}
-    .online{background:#0f5132;color:#d1e7dd}.offline{background:#842029;color:#f8d7da}
-    #log{height:200px;overflow-y:auto;background:#010409;border:1px solid #30363d;padding:8px;font-size:11px;font-family:monospace}
+    body { 
+      background: #000; 
+      color: #0f0; 
+      font-family: monospace; 
+      padding: 20px;
+      margin: 0;
+    }
+    .box { 
+      border: 1px solid #0f0; 
+      padding: 15px; 
+      margin-bottom: 15px;
+    }
+    .conglomerate {
+      border: 1px solid #ffd700;
+      color: #ffd700;
+    }
+    button {
+      background: #000;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 10px 15px;
+      margin: 5px 5px 5px 0;
+      font-family: monospace;
+      cursor: pointer;
+    }
+    button:active { background: #0f0; color: #000; }
+    a { color: #ffd700; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    #log {
+      border: 1px solid #0f0;
+      padding: 10px;
+      min-height: 300px;
+      white-space: pre-wrap;
+    }
+    .green { color: #0f0; }
+    .red { color: #f00; }
+    .gold { color: #ffd700; }
   </style>
 </head>
 <body>
-<header>
-  <h2>HERMES-TOTH v4</h2>
-  <small>Swadia Protocol | EU8044516 | <span id="hermes-status" class="status offline">CHECKING...</span></small>
-</header>
-
-<section class="center">
-  <h1>107 Acres. One Chain.</h1>
-  <p>Zero Heidelberg. <b>COLONEL|LAW48 ACTIVE</b></p>
-  <button class="btn" onclick="connectWallet()">Connect Wallet</button>
-  <button class="btn" onclick="logViolation()">LOG EU VIOLATION</button>
-  <button class="btn" onclick="reflect()">REFLECT → KV</button>
-</section>
-
-<section>
-  <div class="grid grid-4">
-    <div class="card">Case: EU8044516</div>
-    <div class="card">Owner: 0xCOLONEL</div>
-    <div class="card">Chain: 0x504841</div>
-    <div class="card">Agent: HERMES_TOTH_v4</div>
+  <div class="box conglomerate">
+    <div class="gold">PHARAOH CONGLOMERATE | SOVEREIGN CHAIN</div>
+    <div>Owner: <span class="gold">0xCOLONEL</span> | Chain: <span class="gold">0x504841</span></div>
+    <div>
+      <a href="https://soloist.ai/pharaohconglomerate" target="_blank">PharaohConglomerate</a> | 
+      <a href="https://soloist.ai/humanrightsangelsregistryinc" target="_blank">HR Angels Registry</a> |
+      <a href="https://app.netlify.com/projects/pharaohconglomerate-inter-nfea-7p17m1/" target="_blank">Netlify: PC</a> |
+      <a href="https://app.netlify.com/teams/humanrightsangels/projects" target="_blank">Netlify: HR</a>
+    </div>
   </div>
-</section>
 
-<section>
-  <h3>Swadia Memory Log</h3>
-  <div id="log">Initializing HERMES_MEMORY...</div>
-  <button class="btn" onclick="loadMemory()">Refresh Memory</button>
-</section>
+  <div class="box">
+    <div>SWADIA PROTOCOL | LAW48 ACTIVE</div>
+    <div>COLONEL|LAW48 <span id="state" class="green">CHECKING...</span></div>
+    <div>Case: <span id="case">EU8044516</span> | Agent: HERMES_TOTH_v4</div>
+  </div>
 
-<div class="watermark">COLONEL|LAW48|SWADIA</div>
+  <button id="btn-log">LOG EU VIOLATION</button>
+  <button id="btn-reflect">COLONEL REFLECT</button>
+  <button id="btn-get">Refresh Memory</button>
 
-<script>
-  const API = location.origin;
-  
-  async function checkHermes(){
-    try{
-      const r = await fetch(`${API}/api/status`);
-      const j = await r.json();
-      document.getElementById('hermes-status').textContent = j.colonel;
-      document.getElementById('hermes-status').className = 'status online';
-      loadMemory();
-    }catch(e){
-      document.getElementById('hermes-status').textContent = 'OFFLINE';
+  <div id="log">Connecting to KV...</div>
+
+  <script>
+    // LAW48: Conglomerate DNA. Zero Wrangler. Zero Heidelberg.
+    
+    const CONGLOMERATE = {
+      pharaoh: 'https://soloist.ai/pharaohconglomerate',
+      hr_registry: 'https://soloist.ai/humanrightsangelsregistryinc',
+      netlify_pc: 'https://app.netlify.com/projects/pharaohconglomerate-inter-nfea-7p17m1/',
+      netlify_hr: 'https://app.netlify.com/teams/humanrightsangels/projects'
+    };
+    
+    async function getStatus() {
+      try {
+        const r = await fetch('/api/status');
+        const j = await r.json();
+        document.getElementById('state').textContent = j.colonel || 'ACTIVE';
+        document.getElementById('state').className = 'green';
+        document.getElementById('case').textContent = j.case_ref || j.case || 'EU8044516';
+      } catch (e) {
+        document.getElementById('state').textContent = 'OFFLINE';
+        document.getElementById('state').className = 'red';
+      }
     }
-  }
-  
-  async function connectWallet(){
-    if(!window.ethereum) return alert("MetaMask not found");
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    await provider.send("eth_requestAccounts",[]);
-    const signer = await provider.getSigner();
-    alert("Connected: " + await signer.getAddress());
-  }
-  
-  async function logViolation(){
-    const data = {action:"EU_VIOLATION",case:"EU8044516",timestamp:Date.now(),law:"LAW15"};
-    await fetch(`${API}/api/reflect`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    loadMemory();
-  }
-  
-  async function reflect(){
-    const data = {action:"COLONEL_REFLECT",law:"LAW48",timestamp:Date.now()};
-    await fetch(`${API}/api/reflect`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    loadMemory();
-  }
-  
-  async function loadMemory(){
-    try{
-      const r = await fetch(`${API}/api/memory`);
-      const j = await r.json();
-      document.getElementById('log').innerHTML = j.memories.map(m => `[${new Date(m.timestamp).toLocaleTimeString()}] ${m.law}: ${m.action}`).join('<br>') || 'No memories yet. Click LOG EU VIOLATION.';
-    }catch(e){
-      document.getElementById('log').innerHTML = 'Memory offline. Check /api/memory';
+
+    async function getMemory() {
+      const logEl = document.getElementById('log');
+      try {
+        const r = await fetch('/api/memory');
+        const j = await r.json();
+        const mem = j.memories || [];
+        
+        if (!mem.length) {
+          logEl.textContent = 'Memory empty. LAW48 ready. Conglomerate linked.';
+          return;
+        }
+
+        logEl.innerHTML = mem.map(m => {
+          const ts = m.timestamp || m.time || Date.now();
+          const date = new Date(Number(ts)).toLocaleString();
+          const act = m.action || m.type || 'EVENT';
+          const ref = m.case_ref || m.case || 'EU8044516';
+          return `${date} | ${act} | Case: ${ref} | Chain: 0x504841`;
+        }).join('\n');
+        
+      } catch (e) {
+        logEl.textContent = 'Error: Cannot reach /api/memory';
+      }
     }
-  }
-  
-  checkHermes();
-  setInterval(checkHermes, 10000);
-</script>
+
+    async function postLog(action) {
+      try {
+        await fetch('/api/log', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            action: action,
+            timestamp: Date.now(),
+            case_ref: 'EU8044516',
+            conglomerate: 'PHARAOH',
+            registry: 'HR_ANGELS'
+          })
+        });
+        await getMemory();
+      } catch (e) {
+        alert('Log failed. Check network.');
+      }
+    }
+
+    // Wire buttons
+    document.getElementById('btn-log').onclick = () => postLog('EU_VIOLATION');
+    document.getElementById('btn-reflect').onclick = () => postLog('COLONEL_REFLECT');
+    document.getElementById('btn-get').onclick = getMemory;
+
+    // Boot
+    getStatus();
+    getMemory();
+    console.log('LAW48 DNA: PharaohConglomerate + HR Angels Registry linked', CONGLOMERATE);
+  </script>
 </body>
 </html>
