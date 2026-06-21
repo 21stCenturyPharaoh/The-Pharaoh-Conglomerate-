@@ -5,7 +5,8 @@ const app = new Hono();
 
 app.post('/', async (c) => {
   try {
-    const kv = c.env.KV;
+    const kv = c.env.HERMES_MEMORY;   // ← Your binding name
+    
     const body = await c.req.json();
     
     const newEntry = {
@@ -17,23 +18,17 @@ app.post('/', async (c) => {
       type: "REFLECT"
     };
 
-    // Get existing memories
     let memories = await kv.get('memories', 'json') || [];
-    
-    // Add new entry at the beginning (newest first)
     memories.unshift(newEntry);
     
-    // Keep only last 100 entries
     if (memories.length > 100) memories = memories.slice(0, 100);
     
-    // Save back to KV
     await kv.put('memories', JSON.stringify(memories));
 
     return c.json({
       success: true,
-      message: "Reflection logged successfully",
-      entry: newEntry,
-      total: memories.length
+      message: "Reflection logged",
+      entry: newEntry
     });
   } catch (e) {
     return c.json({ success: false, error: e.message }, 500);
