@@ -1,3 +1,4 @@
+name: yaml
 name: Deploy Hermes + Pages
 
 on:
@@ -6,7 +7,7 @@ on:
       - main
 
 jobs:
-  deploy-worker:
+  deploy-hermes:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,10 +18,10 @@ jobs:
       
       - run: npm install
       
-      - name: Deploy Worker with Wrangler
+      - name: Deploy Hermes Agent
         run: npx wrangler deploy
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLAREAPITOKEN: ${{ secrets.CLOUDFLAREAPITOKEN }}
 
   deploy-pages:
     runs-on: ubuntu-latest
@@ -34,10 +35,10 @@ jobs:
       - run: npm install
       - run: npm run build
       
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy Pharaoh Pages
         uses: cloudflare/pages-action@v1
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLAREAPITOKEN }}
+          accountId: ${{ secrets.CLOUDFLAREACCOUNTID }}
           projectName: hermes-toth-agent
           directory: dist
