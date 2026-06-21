@@ -2,18 +2,10 @@
   "name": "hermes-toth-agent",
   "version": "4.0.0",
   "description": "COLONEL|LAW48 - Swadia Protocol Sovereign Agent",
-  "main": "src/index.js",
-  "scripts": {
-    "dev": "wrangler pages dev dist --kv HERMES_MEMORY",
-    "deploy": "wrangler pages deploy dist --project-name=hermesos",
-    "tail": "wrangler pages deployment tail --project-name=hermesos"
-  },
+  "type": "module",
   "dependencies": {
     "ethers": "^6.13.0",
     "hono": "^4.5.0"
-  },
-  "devDependencies": {
-    "wrangler": "^3.78.0"
   },
   "engines": {
     "node": ">=18"
