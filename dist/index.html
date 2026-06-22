@@ -95,6 +95,7 @@
   <button id="btn-log">LOG EU VIOLATION</button>
   <button id="btn-reflect">COLONEL REFLECT</button>
   <button id="btn-get">Refresh Memory</button>
+<button id="btn-yt">Search CEMENCO YouTube</button>
 
   <div id="log">Connecting to KV...</div>
 
@@ -170,3 +171,18 @@
   </script>
 </body>
 </html>
+<script>
+document.getElementById('btn-yt').onclick = async () => {
+  const logEl = document.getElementById('log');
+  logEl.textContent = 'Querying YouTube via LAW48 proxy...';
+  try {
+    const r = await fetch('/api/youtube?q=CEMENCO+Liberia+cement+dust');
+    const j = await r.json();
+    logEl.innerHTML = j.videos?.map(v => 
+      `${formatDate(v.published)} | ${v.title} | ${v.channel}\n${v.url}`
+    ).join('\n\n') || 'No videos found. LAW48 clean.';
+  } catch (e) {
+    logEl.textContent = 'YouTube Error: ' + e.message;
+  }
+};
+</script>
