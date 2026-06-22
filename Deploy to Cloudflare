@@ -1,0 +1,21 @@
+.github/workflows/deploy.yml
+`yaml
+name: Deploy to Cloudflare
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
+      - name: Deploy with Wrangler
+        run: wrangler deploy --api-token ${{ secrets.CLOUDFLAREAPITOKEN }}
