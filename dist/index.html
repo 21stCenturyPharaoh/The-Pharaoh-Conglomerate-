@@ -96,6 +96,7 @@
   <button id="btn-reflect">COLONEL REFLECT</button>
   <button id="btn-get">Refresh Memory</button>
 <button id="btn-yt">Search CEMENCO YouTube</button>
+<button id="btn-sat">Toth: Satellite Scan CEMENCO</button>
 
   <div id="log">Connecting to KV...</div>
 
@@ -183,6 +184,20 @@ document.getElementById('btn-yt').onclick = async () => {
     ).join('\n\n') || 'No videos found. LAW48 clean.';
   } catch (e) {
     logEl.textContent = 'YouTube Error: ' + e.message;
+  }
+};
+</script>
+<script>
+document.getElementById('btn-sat').onclick = async () => {
+  const logEl = document.getElementById('log');
+  logEl.textContent = 'Toth accessing satellite... LAW48 orbital strike...';
+  try {
+    const r = await fetch('/api/satellite?site=CEMENCO&lat=6.2907&lng=-10.7605&zoom=17');
+    const blob = await r.blob();
+    const imgUrl = URL.createObjectURL(blob);
+    logEl.innerHTML = `CEMENCO SATELLITE CAPTURED:\n<img src="${imgUrl}" style="max-width:100%;border:2px solid #0f0;">\nTimestamp: ${new Date().toISOString()}\nCoords: 6.2907, -10.7605\nLAW48: Evidence logged to KV.`;
+  } catch (e) {
+    logEl.textContent = 'Toth Satellite Error: ' + e.message;
   }
 };
 </script>
